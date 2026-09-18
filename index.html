@@ -4,14 +4,355 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Parag</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lora:ital@0;1&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #fafaf8;
+      --surface: #ffffff;
+      --text: #1a1a18;
+      --muted: #6b6b63;
+      --accent: #2563eb;
+      --accent-light: #eff6ff;
+      --border: #e8e8e2;
+      --radius: 12px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #111110;
+        --surface: #1c1c1a;
+        --text: #f0f0ec;
+        --muted: #8a8a82;
+        --accent: #60a5fa;
+        --accent-light: #1e2d45;
+        --border: #2a2a28;
+      }
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Nav */
+    nav {
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: var(--bg);
+      backdrop-filter: blur(8px);
+      z-index: 10;
+    }
+
+    nav .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-name {
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      text-decoration: none;
+      color: var(--text);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 14px;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    /* Hero */
+    .hero {
+      padding: 72px 0 56px;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--accent);
+      background: var(--accent-light);
+      padding: 4px 10px;
+      border-radius: 999px;
+      margin-bottom: 20px;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .hero h1 {
+      font-family: 'Lora', Georgia, serif;
+      font-size: clamp(36px, 6vw, 52px);
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--muted);
+    }
+
+    .hero p {
+      font-size: 17px;
+      color: var(--muted);
+      max-width: 540px;
+      line-height: 1.7;
+      margin-bottom: 32px;
+    }
+
+    .hero-links {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 9px 18px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.15s;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .btn-primary:hover { opacity: 0.88; }
+
+    .btn-ghost {
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+
+    .btn-ghost:hover { background: var(--surface); }
+
+    /* Divider */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 8px 0;
+    }
+
+    /* Section */
+    section { padding: 48px 0; }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 28px;
+    }
+
+    /* Posts */
+    .post-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .post-item {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+      text-decoration: none;
+      color: var(--text);
+      transition: color 0.15s;
+    }
+
+    .post-item:first-child { border-top: 1px solid var(--border); }
+    .post-item:hover .post-title { color: var(--accent); }
+
+    .post-title {
+      font-size: 15px;
+      font-weight: 500;
+      transition: color 0.15s;
+    }
+
+    .post-meta {
+      font-size: 13px;
+      color: var(--muted);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .post-coming {
+      padding: 32px;
+      background: var(--surface);
+      border: 1px dashed var(--border);
+      border-radius: var(--radius);
+      text-align: center;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* About */
+    .about-text {
+      font-family: 'Lora', Georgia, serif;
+      font-size: 16px;
+      line-height: 1.8;
+      color: var(--muted);
+    }
+
+    .about-text strong {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    /* Footer */
+    footer {
+      padding: 32px 0 40px;
+      border-top: 1px solid var(--border);
+    }
+
+    footer .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    footer p {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    footer a {
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    footer a:hover { color: var(--text); }
+
+    .footer-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .footer-links a { font-size: 13px; }
+
+    @media (max-width: 480px) {
+      .hero { padding: 48px 0 40px; }
+      footer .container { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
 </head>
 <body>
-  <h1>Parag</h1>
-  <p>Backend engineer exploring cloud infrastructure, security, and AI tooling.</p>
 
-  <h2>Articles</h2>
-  <ul>
-    <li><a href="#">Coming soon</a></li>
-  </ul>
+  <nav>
+    <div class="container">
+      <a class="nav-name" href="#">Parag</a>
+      <ul class="nav-links">
+        <li><a href="#writing">Writing</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="https://github.com/Parag953" target="_blank" rel="noopener">GitHub</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+    <div class="container">
+
+      <div class="hero">
+        <div class="hero-eyebrow">Backend engineer</div>
+        <h1>Building systems<br>that <em>scale and secure.</em></h1>
+        <p>
+          I work on cloud infrastructure, distributed systems, and security tooling.
+          Occasionally I write about what I learn along the way.
+        </p>
+        <div class="hero-links">
+          <a class="btn btn-primary" href="https://github.com/Parag953" target="_blank" rel="noopener">
+            GitHub →
+          </a>
+          <a class="btn btn-ghost" href="mailto:parag@andromedasecurity.com">
+            Get in touch
+          </a>
+        </div>
+      </div>
+
+      <hr class="divider">
+
+      <section id="writing">
+        <p class="section-label">Writing</p>
+        <div class="post-list">
+          <div class="post-coming">
+            Articles coming soon — check back later.
+          </div>
+        </div>
+      </section>
+
+      <hr class="divider">
+
+      <section id="about">
+        <p class="section-label">About</p>
+        <p class="about-text">
+          I'm a backend engineer focused on <strong>cloud infrastructure</strong>,
+          <strong>Kubernetes</strong>, and <strong>security platforms</strong>.
+          I care about systems that are observable, resilient, and don't surprise you at 2 am.
+        </p>
+      </section>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>© 2026 Parag</p>
+      <div class="footer-links">
+        <a href="https://github.com/Parag953" target="_blank" rel="noopener">GitHub</a>
+        <a href="mailto:parag@andromedasecurity.com">Email</a>
+      </div>
+    </div>
+  </footer>
+
 </body>
 </html>
