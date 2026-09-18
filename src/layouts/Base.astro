@@ -1,0 +1,153 @@
+---
+interface Props {
+  title?: string;
+}
+const { title = 'Parag' } = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{title}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lora:ital@0;1&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #fafaf8;
+      --surface: #ffffff;
+      --text: #1a1a18;
+      --muted: #6b6b63;
+      --accent: #2563eb;
+      --accent-light: #eff6ff;
+      --border: #e8e8e2;
+      --radius: 12px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #111110;
+        --surface: #1c1c1a;
+        --text: #f0f0ec;
+        --muted: #8a8a82;
+        --accent: #60a5fa;
+        --accent-light: #1e2d45;
+        --border: #2a2a28;
+      }
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    nav {
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: var(--bg);
+      backdrop-filter: blur(8px);
+      z-index: 10;
+    }
+
+    nav .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-name {
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      text-decoration: none;
+      color: var(--text);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 14px;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    footer {
+      padding: 32px 0 40px;
+      border-top: 1px solid var(--border);
+      margin-top: 40px;
+    }
+
+    footer .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    footer p { font-size: 13px; color: var(--muted); }
+
+    footer a {
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.15s;
+      font-size: 13px;
+    }
+
+    footer a:hover { color: var(--text); }
+
+    .footer-links { display: flex; gap: 20px; }
+
+    @media (max-width: 480px) {
+      footer .container { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="container">
+      <a class="nav-name" href="/">Parag</a>
+      <ul class="nav-links">
+        <li><a href="/#writing">Writing</a></li>
+        <li><a href="/#about">About</a></li>
+        <li><a href="https://github.com/Parag953" target="_blank" rel="noopener">GitHub</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <slot />
+
+  <footer>
+    <div class="container">
+      <p>© {new Date().getFullYear()} Parag</p>
+      <div class="footer-links">
+        <a href="https://github.com/Parag953" target="_blank" rel="noopener">GitHub</a>
+        <a href="mailto:parag@andromedasecurity.com">Email</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
